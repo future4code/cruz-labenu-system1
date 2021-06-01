@@ -1,0 +1,9 @@
+###
+PUT http://localhost:3003/student
+Content-Type: application/json
+  
+{
+    "name":"Cloe De Oliveira", 
+    "birth_date":"1996-01-20",
+    "email":"cloe2@gmail.com"
+}
