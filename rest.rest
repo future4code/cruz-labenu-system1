@@ -5,5 +5,47 @@ Content-Type: application/json
 {
     "name":"Cloe De Oliveira", 
     "birth_date":"1996-01-20",
-    "email":"cloe2@gmail.com"
+    "email":"cloe12@gmail.com"
 }
+
+###
+PUT http://localhost:3003/teacher
+Content-Type: application/json
+  
+{
+    "name":"Cloe De Oliveira", 
+    "birth_date":"1996-01-20",
+    "email":"cloe@gmail.com"
+}
+
+
+###
+PUT http://localhost:3003/class
+Content-Type: application/json
+  
+{
+    "name": "Cruz",
+    "start_date": "2021-01-18",
+    "end_date":"2021-07-10"
+}
+
+###
+PUT http://localhost:3003/linked/student
+Content-Type: application/json
+  
+{
+    "fk_student_id": "bd43e585-0131-4b26-88dc-c8f9b49707c9",
+    "fk_class_id": "eeb9d116-daf0-42df-af3a-95b001ed0b9a"
+}
+
+###
+PUT http://localhost:3003/linked/teacher
+Content-Type: application/json
+  
+{
+    "fk_teacher_id": "f52377af-402a-48fe-82f8-d4aab20624c8",
+    "fk_class_id": "eeb9d116-daf0-42df-af3a-95b001ed0b9a"
+}
+
+###
+GET http://localhost:3003/student/age/bd43e585-0131-4b26-88dc-c8f9b49707c9

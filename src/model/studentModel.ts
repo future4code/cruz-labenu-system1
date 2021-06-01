@@ -7,11 +7,25 @@ const studentsModel = {
                 INSERT INTO student
                 value('${id}', '${name}', '${email}', '${birth_date}')
             `)
-            console.log(result.menssage[0].affectedRows)
-            return result.menssage[0].affectedRows;
+            return result[0].affectedRows;
         }
         catch(err){
-            return (err.menssage || err.sqlMessage)
+            return (err.message || err.sqlMessage)
+        }
+    },
+    getAgeByID: async (id:string):Promise<any> => {
+        try{
+            const result =  await connection.raw(`
+            SELECT 
+                TIMESTAMPDIFF(YEAR, birth_date, current_date()) as age 
+            FROM
+            student
+            where id = '${id}'
+            `)
+            return result[0]
+        }
+        catch(err){
+            return (err.message || err.sqlMessage)
         }
     }
 }
