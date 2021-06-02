@@ -9,7 +9,7 @@ server.use(Router)
 
 const app = server.listen(3003, () => {
     if (app) {
-        console.log('[ server ] listing at port 3003 on http://localhost:3003');  
+        console.log('[ server ] listing at port 3003 on http://localhost:3003');
     } else {
         console.log('[ server ] not started!');      
     }

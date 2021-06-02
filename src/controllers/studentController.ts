@@ -7,6 +7,7 @@ const StudentController = {
   create: async (req: Request, res: Response): Promise<any> => {
     try {
       let { name, birth_date, email }: student = req.body;
+
       name = name.trim();
       if (!name) {
         res.statusCode = 400;

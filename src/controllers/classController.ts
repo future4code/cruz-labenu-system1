@@ -2,12 +2,13 @@ import { Request, Response } from "express";
 import classTypes from "../types/class";
 import classModel from "../model/classModel";
 import { v4 as uuidv4, validate } from "uuid";
-import { current_module as module_enum } from "../types/class";
+import { valid_modules } from '../types/class'
 
 const classController = {
   create: async (req: Request, res: Response): Promise<any> => {
     try {
       let { name, start_date, end_date, current_module }: classTypes = req.body;
+
       name = name.trim();
       if (!name) {
         throw new Error("the name needs to be informed.");
@@ -26,6 +27,11 @@ const classController = {
       if (isNaN(date)) {
         throw new Error("Date isn't in a valid format");
       }
+
+      if (!valid_modules.includes((Number(current_module)))) {
+        throw new Error("Module value is not valid")
+      }
+
       const id = uuidv4();
       const dbResult = await classModel.create({
         id,
@@ -84,14 +90,19 @@ const classController = {
   },
   updateModule:async (req: Request, res: Response): Promise<any> => {
     try {
-      const module= req.body.module as string;
+      const current_module= req.body.current_module as string;
       const id = req.params.id as string;
 
       if (!validate(id)) {
         res.statusCode = 400;
         throw new Error("Invalid Class_id");
       }
-      const dbResult = await classModel.updateModule(id, module);
+
+      if (!valid_modules.includes((Number(current_module)))) {
+        throw new Error("Module value is not valid")
+      }
+
+      const dbResult = await classModel.updateModule(id, current_module);
 
       if(dbResult === 0){
         res.statusCode = 400;
