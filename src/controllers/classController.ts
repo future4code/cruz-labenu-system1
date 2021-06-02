@@ -26,11 +26,18 @@ const classController = {
       if (isNaN(date)) {
         throw new Error("Date isn't in a valid format");
       }
-        for (const key in module_enum) {
-            console.log(key);
-        }
 
-        // validar current_module
+      // validar current_module com ENUM
+
+      /* const convert: number  = Number(current_module) || 0
+      let currentModuleIsMath = false;
+      for (const key in module_enum) {
+          if (key === convert ) {
+            console.log("passou")
+          }
+          console.log(key);
+      }
+ */
      /*  if (!currentModuleIsMath) {
         throw new Error("the current module needs to be informed.");
       } */
