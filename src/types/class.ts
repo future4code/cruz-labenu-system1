@@ -1,4 +1,4 @@
-enum current_module{
+export enum current_module{
     M0 = '0',
     M1 = '1',
     M2 ='2',
