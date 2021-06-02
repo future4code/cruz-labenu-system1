@@ -14,6 +14,23 @@ const linkedModel = {
         catch(err){
             return (err.message || err.sqlMessage)
         }
+    },
+    delUserByClass: async ({fk_student_id, fk_teacher_id, fk_class_id}:registration):Promise<any> => {
+        try{
+            const table = fk_student_id ?"student_class": "teacher_class";
+            const column = fk_student_id ?"fk_student_id": "fk_teacher_id";
+            const user = fk_student_id || fk_teacher_id;
+            const result =  await connection.raw(`
+                DELETE FROM ${table} 
+                WHERE ${column} = '${user}' and
+                fk_class_id = '${fk_class_id}'
+
+            `)
+            return result[0].affectedRows;
+        }
+        catch(err){
+            return (err.message || err.sqlMessage)
+        }
     }
 }
 export default linkedModel;

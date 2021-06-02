@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import classTypes from "../types/class";
 import classModel from "../model/classModel";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4, validate } from "uuid";
 import { current_module as module_enum } from "../types/class";
 
 const classController = {
@@ -26,21 +26,6 @@ const classController = {
       if (isNaN(date)) {
         throw new Error("Date isn't in a valid format");
       }
-
-      // validar current_module com ENUM
-
-      /* const convert: number  = Number(current_module) || 0
-      let currentModuleIsMath = false;
-      for (const key in module_enum) {
-          if (key === convert ) {
-            console.log("passou")
-          }
-          console.log(key);
-      }
- */
-     /*  if (!currentModuleIsMath) {
-        throw new Error("the current module needs to be informed.");
-      } */
       const id = uuidv4();
       const dbResult = await classModel.create({
         id,
@@ -55,10 +40,69 @@ const classController = {
         res.statusCode = 400;
         throw new Error("class not created");
       }
+      
       res.send({ message: "New class created" });
+
     } catch (err) {
       res.send({ message: err.message });
     }
   },
+  getAllStudents: async (req: Request, res: Response): Promise<any> => {
+    try {
+      const { id } = req.params;
+      if (!validate(id)) {
+        res.statusCode = 400;
+        throw new Error("Invalid Class_id");
+      }
+      const dbResult = await classModel.getStudents(id);
+      if(dbResult.length === 0){
+        res.statusCode = 400;
+        throw new Error("Class not found");
+      }
+      
+      res.send({ students: dbResult });
+    } catch (err) {
+      res.send({ message: err.message });
+    }
+  },
+  getAllTeachers: async (req: Request, res: Response): Promise<any> => {
+    try {
+      const { id } = req.params;
+      if (!validate(id)) {
+        res.statusCode = 400;
+        throw new Error("Invalid Class_id");
+      }
+      const dbResult = await classModel.getTeachers(id);
+      if(dbResult.length === 0){
+        throw new Error("Class not found");
+      }
+      
+      res.send({ teachers: dbResult });
+    } catch (err) {
+      res.send({ message: err.message });
+    }
+  },
+  updateModule:async (req: Request, res: Response): Promise<any> => {
+    try {
+      const module= req.body.module as string;
+      const id = req.params.id as string;
+
+      if (!validate(id)) {
+        res.statusCode = 400;
+        throw new Error("Invalid Class_id");
+      }
+      const dbResult = await classModel.updateModule(id, module);
+
+      if(dbResult === 0){
+        res.statusCode = 400;
+        throw new Error("Class not update");
+      }
+      
+      res.send({ message: "Class update" });
+      
+    } catch (err) {
+      res.send({ message: err.message });
+    }
+  }
 };
 export default classController;

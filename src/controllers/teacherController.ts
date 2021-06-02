@@ -9,17 +9,21 @@ const teacherController = {
       let { name, birth_date, email }: teacher = req.body;
       name = name.trim();
       if (!name) {
+        res.statusCode = 400;
         throw new Error("the name needs to be informed.");
       }
       if (!birth_date) {
+        res.statusCode = 400;
         throw new Error("the birth date needs to be informed.");
       }
       const date = new Date(birth_date).getTime();
       if (isNaN(date)) {
+        res.statusCode = 400;
         throw new Error("Date isn't in a valid format");
       }
       email = email.trim();
       if (!email) {
+        res.statusCode = 400;
         throw new Error("the email needs to be informed.");
       }
       const id = uuidv4();

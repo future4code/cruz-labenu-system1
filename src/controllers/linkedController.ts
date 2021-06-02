@@ -56,6 +56,49 @@ const linkedController = {
         catch(err){
             res.send({message: err.message})
         }
+    },
+    delStudentTheClass: async (req: Request, res: Response):Promise<any> => {
+        try{
+            const {fk_student_id, fk_class_id } = req.params 
+            if (!validate(fk_student_id)) {
+                throw new Error("Invalid Student_id");
+            }
+            if (!validate(fk_class_id)) {
+                throw new Error("Invalid Class_id");
+            }
+            const dbResult = await linkedModel.delUserByClass({fk_class_id, fk_student_id})
+            
+            if(dbResult !== 1){
+                res.statusCode = 400;  
+                throw new Error ("Student not removed from class.")
+            }
+            
+            res.send({message: "Unenrolled student"})
+        }
+        catch(err){
+            res.send({message: err.message})
+        }
+    },
+    delTeacherTheClass: async (req: Request, res: Response):Promise<any> => {
+        try{
+            const {fk_teacher_id, fk_class_id } = req.params 
+            if (!validate(fk_teacher_id)) {
+                throw new Error("Invalid Teacher_id");
+            }
+            if (!validate(fk_class_id)) {
+                throw new Error("Invalid Class_id");
+            }
+            const dbResult = await linkedModel.delUserByClass({fk_class_id, fk_teacher_id})
+            
+            if(dbResult !== 1){
+                res.statusCode = 400;  
+                throw new Error ("Teacher not removed from class.")
+            }
+            res.send({message: "Unenrolled teacher"})
+        }
+        catch(err){
+            res.send({message: err.message})
+        }
     }
 }  
 export default linkedController

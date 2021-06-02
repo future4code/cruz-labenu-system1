@@ -35,7 +35,7 @@ PUT http://localhost:3003/linked/student
 Content-Type: application/json
   
 {
-    "fk_student_id": "bd43e585-0131-4b26-88dc-c8f9b49707c9",
+    "fk_student_id": "916e9a7c-7230-4f47-8645-e23b2c6cb7f5",
     "fk_class_id": "eeb9d116-daf0-42df-af3a-95b001ed0b9a"
 }
 
@@ -49,4 +49,31 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3003/student/age/bd43e585-0131-4b26-88dc-c8f9b49707c9
+GET http://localhost:3003/student/age/bd43e585-0131-4b26-88dc-c8f9b49707c2
+
+###
+GET http://localhost:3003/class/eeb9d116-daf0-42df-af3a-95b001ed0b9a/students
+
+###
+GET http://localhost:3003/class/eeb9d116-daf0-42df-af3a-95b001ed0b9a/teachers
+
+###
+GET http://localhost:3003/student/hobby/025e83d9-7008-452a-b7bf-b2b31c6893fa
+
+###
+DELETE http://localhost:3003/linked/class/eeb9d116-daf0-42df-af3a-95b001ed0b9a/student/916e9a7c-7230-4f47-8645-e23b2c6cb7f5
+
+###
+DELETE http://localhost:3003/linked/class/eeb9d116-daf0-42df-af3a-95b001ed0b9a/teacher/f52377af-402a-48fe-82f8-d4aab20624c8
+
+###
+DELETE http://localhost:3003/student/f75dbb45-99d9-444c-859a-0da1eaf699cc
+
+###
+PUT http://localhost:3003/class/eeb9d116-daf0-42df-af3a-95b001ed0b9a/update
+Content-Type: application/json
+  
+{
+    "module": "1"
+}
+
