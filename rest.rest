@@ -24,9 +24,10 @@ PUT http://localhost:3003/class
 Content-Type: application/json
   
 {
-    "name": "Cruz",
-    "start_date": "2021-01-18",
-    "end_date":"2021-07-10"
+    "name": "Turma4",
+    "start_date": "2019-01-18",
+    "end_date":"2019-07-10",
+    "current_module": "1"
 }
 
 ###
@@ -43,7 +44,7 @@ PUT http://localhost:3003/linked/teacher
 Content-Type: application/json
   
 {
-    "fk_teacher_id": "f52377af-402a-48fe-82f8-d4aab20624c8",
+    "fk_teacher_id": "f52377af-402a-48fe-82f8-d4aab20624c",
     "fk_class_id": "eeb9d116-daf0-42df-af3a-95b001ed0b9a"
 }
 
